@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Controls from './components/Controls';
+import { APP_CONFIG } from './config/appConfig';
 import IntroScreen from './components/IntroScreen';
 import StatusPanel from './components/StatusPanel';
 import SunflowerBurstOverlay from './components/SunflowerBurstOverlay';
@@ -31,6 +32,10 @@ export default function App() {
     : hydration >= 50
       ? 1
       : clamp(hydration / 50, 0, 1);
+
+  useEffect(() => {
+    document.title = APP_CONFIG.browserTitle;
+  }, []);
 
   useEffect(() => {
     if (showIntro) {

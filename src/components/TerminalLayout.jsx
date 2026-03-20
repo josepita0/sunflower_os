@@ -1,3 +1,5 @@
+import { APP_CONFIG } from '../config/appConfig';
+
 export default function TerminalLayout({
   statusPanel,
   canvas,
@@ -10,7 +12,7 @@ export default function TerminalLayout({
     <div className="terminal-app">
       {bloomOverlay}
       <header className="top-bar">
-        <div className="os-title">GIRASOL_PA_LA_GIGI_OS_V1.0</div>
+        <div className="os-title">{APP_CONFIG.systemName}</div>
         <button className="header-action-button" type="button" onClick={onOpenIntro}>
           _MENSAJE
         </button>
