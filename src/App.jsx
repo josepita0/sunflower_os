@@ -6,7 +6,13 @@ import StatusPanel from './components/StatusPanel';
 import SunflowerBurstOverlay from './components/SunflowerBurstOverlay';
 import SunflowerCanvas from './components/SunflowerCanvas';
 import TerminalLayout from './components/TerminalLayout';
-import { playBloomTone, playWaterTone } from './game/audio';
+import {
+  enableSoundscape,
+  playBloomTone,
+  playWaterTone,
+  setAmbientLevel,
+  setBeeBuzzLevel,
+} from './game/audio';
 import { clamp, getStage } from './game/stages';
 
 const INITIAL_HYDRATION = 20;
@@ -36,6 +42,16 @@ export default function App() {
   useEffect(() => {
     document.title = APP_CONFIG.browserTitle;
   }, []);
+
+  useEffect(() => {
+    if (showIntro) {
+      setAmbientLevel(0.0008);
+      setBeeBuzzLevel(0);
+      return;
+    }
+
+    setAmbientLevel(0.0022);
+  }, [showIntro]);
 
   useEffect(() => {
     if (showIntro) {
@@ -88,6 +104,15 @@ export default function App() {
   }, [bloomClusterTarget, showIntro]);
 
   useEffect(() => {
+    if (showIntro) {
+      setBeeBuzzLevel(0);
+      return;
+    }
+
+    setBeeBuzzLevel(bloomClusterProgress * 0.0035);
+  }, [bloomClusterProgress, showIntro]);
+
+  useEffect(() => {
     if (bloomFieldActive) {
       if (!bloomFieldTriggeredRef.current) {
         bloomFieldTriggeredRef.current = true;
@@ -106,6 +131,7 @@ export default function App() {
   }, [bloomFieldActive, stage]);
 
   function handleWater() {
+    enableSoundscape();
     const now = Date.now();
     const delta = now - lastWaterRef.current;
     const nextStreak = delta > 200 && delta < 950 ? 2 : 1;
@@ -142,10 +168,12 @@ export default function App() {
   }
 
   function handleContinue() {
+    enableSoundscape();
     setShowIntro(false);
   }
 
   function handleOpenIntro() {
+    enableSoundscape();
     setShowIntro(true);
   }
 
@@ -164,6 +192,7 @@ export default function App() {
           growth={growth}
           pulseFrame={pulseFrame}
           bloomClusterIntensity={bloomClusterProgress}
+          beeSwarmIntensity={bloomClusterProgress}
         />
       }
       controls={<Controls onWater={handleWater} disabled={!canWater} />}

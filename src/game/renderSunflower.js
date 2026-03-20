@@ -168,6 +168,24 @@ export function renderClusterSunflower(
   spritePx(ctx, 29 - stemShift + leanOffset, stemTop - 10, 6, 8, CORE_DARK);
 }
 
+export function renderBee(ctx, { pulseFrame = 0, variant = 0 }) {
+  ctx.clearRect(0, 0, 48, 32);
+  ctx.imageSmoothingEnabled = false;
+
+  const wingLift = (pulseFrame + variant) % 2 === 0 ? 0 : -1;
+  const stripe = variant % 2 === 0 ? '#ffbf1f' : '#ffaa00';
+
+  spritePx(ctx, 10, 8 + wingLift, 4, 2, '#d8f7ff');
+  spritePx(ctx, 14, 7 + wingLift, 4, 2, '#f4ffff');
+  spritePx(ctx, 12, 11, 7, 4, '#2d2100');
+  spritePx(ctx, 13, 10, 5, 1, stripe);
+  spritePx(ctx, 13, 12, 5, 1, stripe);
+  spritePx(ctx, 13, 14, 5, 1, stripe);
+  spritePx(ctx, 10, 12, 2, 2, '#0e0e0e');
+  spritePx(ctx, 19, 12, 2, 2, '#0e0e0e');
+  spritePx(ctx, 20, 11, 2, 1, '#5dbf74');
+}
+
 function drawGrowingStem(ctx, growth, pulseFrame) {
   if (growth < 18) {
     return;

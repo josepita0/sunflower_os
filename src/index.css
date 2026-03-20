@@ -365,6 +365,31 @@ button {
   overflow: hidden;
 }
 
+.bee-swarm {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.bee-orbit {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  width: 0;
+  height: 0;
+  animation: bee-orbit linear infinite;
+}
+
+.pixel-bee {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: center center;
+  animation: bee-hover 0.9s steps(2, end) infinite;
+  filter: drop-shadow(2px 2px 0 rgba(45, 33, 0, 0.45));
+}
+
 .cluster-sunflower {
   position: absolute;
   transform-origin: 50% 100%;
@@ -551,6 +576,25 @@ button {
   }
   50% {
     filter: drop-shadow(3px 3px 0 rgba(255, 221, 124, 0.2));
+  }
+}
+
+@keyframes bee-orbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bee-hover {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -3px;
   }
 }
 

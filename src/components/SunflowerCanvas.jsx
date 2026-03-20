@@ -1,3 +1,4 @@
+import BeeSwarm from './BeeSwarm';
 import { useEffect, useRef } from 'react';
 import SunflowerBloomCluster from './SunflowerBloomCluster';
 import { renderSunflower } from '../game/renderSunflower';
@@ -8,6 +9,7 @@ export default function SunflowerCanvas({
   growth,
   pulseFrame,
   bloomClusterIntensity,
+  beeSwarmIntensity,
 }) {
   const canvasRef = useRef(null);
 
@@ -26,6 +28,7 @@ export default function SunflowerCanvas({
   return (
     <div className="canvas-shell panel phosphor-frame">
       <div className="canvas-stage">
+        <BeeSwarm pulseFrame={pulseFrame} progress={beeSwarmIntensity} />
         <SunflowerBloomCluster pulseFrame={pulseFrame} progress={bloomClusterIntensity} />
         <canvas
           ref={canvasRef}
